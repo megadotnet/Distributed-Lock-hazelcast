@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WebTest Name="insertwithSyncLock" Id="1468b7c2-93ba-45ca-9c31-ff6e1061c256" Owner="" Priority="0" Enabled="True" CssProjectStructure="" CssIteration="" Timeout="0" WorkItemIds="" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010" Description="" CredentialUserName="" CredentialPassword="" PreAuthenticate="True" Proxy="default" StopOnError="False" RecordedResultFile="" ResultsLocale="">
+  <Items>
+    <Request Method="GET" Guid="2bd402ae-a6b3-411c-adb3-fd4d8d4d50ef" Version="1.1" Url="http://localhost:8090/api/insertWithSyncLock" ThinkTime="0" Timeout="60" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Upgrade-Insecure-Requests" Value="1" />
+      </Headers>
+    </Request>
+  </Items>
+</WebTest>

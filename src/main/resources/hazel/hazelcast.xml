@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hazelcast
+	xsi:schemaLocation="http://www.hazelcast.com/schema/config hazelcast-config-3.8.xsd"
+	xmlns="http://www.hazelcast.com/schema/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<management-center enabled="false">
+		http://localhost:8888/mancenter
+	</management-center>
+
+	<network>
+		<!-- <public-address>11.22.33.44:5555</public-address> -->
+		<port auto-increment="false" port-count="1">5701</port>
+		<outbound-ports>
+			<ports>34500</ports>
+		</outbound-ports>
+		<reuse-address>true</reuse-address>
+		<join>
+			<multicast enabled="false">
+				<multicast-group>224.2.2.3</multicast-group>
+				<multicast-port>54327</multicast-port>
+			</multicast>
+			<tcp-ip enabled="true" connection-timeout-seconds="15">
+				<!-- <required-member>192.168.1.132</required-member> -->
+				<member>localhost</member>
+				<!-- <interface>192.168.1.130-133</interface> -->
+				<!-- <connection-timeout-seconds>10</connection-timeout-seconds> -->
+			</tcp-ip>
+		</join>
+		<interfaces enabled="false">
+			<interface>localhost</interface>
+		</interfaces>
+	</network>
+
+	<!-- <network port="5701" port-auto-increment="false"> <join> <multicast 
+		enabled="false" multicast-group="224.2.2.3" multicast-port="54327" /> <tcp-ip 
+		enabled="true"> <members>192.168.1.136, 192.168.1.138</members> </tcp-ip> 
+		</join> </network> -->
+
+
+</hazelcast>
