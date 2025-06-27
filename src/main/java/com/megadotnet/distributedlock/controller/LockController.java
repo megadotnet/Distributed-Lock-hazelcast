@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import com.hazelcast.core.ILock;
 import com.megadotnet.distributedlock.entity.Product;
 import com.megadotnet.distributedlock.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hazelcast.core.HazelcastInstance;
-import com.hazelcast.core.ILock;
 
 @RestController
 @RequestMapping("/api")

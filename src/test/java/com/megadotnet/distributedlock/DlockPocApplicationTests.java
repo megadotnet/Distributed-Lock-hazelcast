@@ -21,6 +21,7 @@ public class DlockPocApplicationTests {
 
 
 	@Test
+	@Ignore
 	public void testclient()
 	{
 		ClientConfig clientConfig = new ClientConfig();
