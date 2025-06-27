@@ -7,11 +7,12 @@ import com.hazelcast.client.HazelcastClient;
 import com.hazelcast.client.config.ClientConfig;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
-import com.hazelcast.spring.cache.HazelcastCacheManager;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 import javax.annotation.PreDestroy;
+
+import com.hazelcast.spring.cache.HazelcastCacheManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -86,10 +87,10 @@ public class HazelcastConfiguration {
 
                     String server = (String)var3.next();
                     config.getNetworkConfig().addAddress(new String[]{server});
-                    config.getNetworkConfig().setConnectionAttemptLimit(this.hazelcastProperties.getConnectionAttemptLimits().intValue());
+                    //config.getNetworkConfig().setConnectionAttemptLimit(this.hazelcastProperties.getConnectionAttemptLimits().intValue());
                     config.getNetworkConfig().setConnectionTimeout(this.hazelcastProperties.getTimeout().intValue());
-                    config.getNetworkConfig().setConnectionAttemptPeriod(this.hazelcastProperties.getConnectionAttemptPeriod().intValue());
-                    config.setExecutorPoolSize(this.hazelcastProperties.getPoolSize().intValue());
+                    //config.getNetworkConfig().setConnectionAttemptPeriod(this.hazelcastProperties.getConnectionAttemptPeriod().intValue());
+                    //config.setExecutorPoolSize(this.hazelcastProperties.getPoolSize().intValue());
                     config.setProperty("hazelcast.socket.keep.alive", "true");
                 } while(null == this.hazelcastProperties.getProperties());
 
