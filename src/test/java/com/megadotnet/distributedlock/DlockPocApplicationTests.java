@@ -15,8 +15,8 @@ import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
 
+
 @RunWith(SpringRunner.class)
-@Ignore
 public class DlockPocApplicationTests {
 
 
