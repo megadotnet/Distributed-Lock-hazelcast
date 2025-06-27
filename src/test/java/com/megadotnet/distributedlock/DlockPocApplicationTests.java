@@ -15,12 +15,13 @@ import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
 
+
 @RunWith(SpringRunner.class)
-@Ignore
 public class DlockPocApplicationTests {
 
 
 	@Test
+	@Ignore
 	public void testclient()
 	{
 		ClientConfig clientConfig = new ClientConfig();

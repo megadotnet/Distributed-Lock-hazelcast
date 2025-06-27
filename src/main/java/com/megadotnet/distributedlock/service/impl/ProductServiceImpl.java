@@ -1,7 +1,9 @@
 package com.megadotnet.distributedlock.service.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import com.megadotnet.distributedlock.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +25,12 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public Product insertProduct() {
-		if (repo.count() == 0) {
-			Product p = new Product();
-			p.setSeq(0);
-			return repo.save(p);
-		}
-		int seq = repo.findAll(new Sort(Direction.DESC, "seq")).get(0).getSeq();
+		// Get the current maximum sequence number safely
+		Optional<Integer> maxSeq = repo.findMaxSeq();
+		int nextSeq = maxSeq.orElse(-1) + 1;
+
 		Product p = new Product();
-		p.setSeq(seq + 1);
+		p.setSeq(nextSeq);
 		return repo.save(p);
 	}
 
