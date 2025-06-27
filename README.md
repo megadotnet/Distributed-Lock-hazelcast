@@ -2,8 +2,32 @@
 A SpringBoot project about using hazelcast distributed lock ti sequence http requests
 
 ## Dependency
-1. Mysql Database version 5.7 or later
-2. Hazelcast binary version 3.10 or later
+1. Mysql Database version 5.7 or later (for production)
+2. H2 Database (for development and testing)
+3. Hazelcast binary version 3.10 or later
+
+## Development Setup
+### Using H2 Database (for development and testing)
+1. The project includes H2 database configuration for development and testing purposes
+2. To use H2 database, run the application with the 'h2' profile:
+   ```bash
+   mvn spring-boot:run -Dspring-boot.run.profiles=h2
+   ```
+3. Access H2 Console:
+   - URL: http://localhost:8090/h2-console
+   - JDBC URL: jdbc:h2:mem:testdb
+   - Username: sa
+   - Password: (leave empty)
+
+### Running Tests with H2
+1. Unit tests are configured to use H2 database by default
+2. Run tests using Maven:
+   ```bash
+   mvn test
+   ```
+3. The following test classes demonstrate H2 database usage:
+   - `ProductRepositoryH2Test.java`: Repository layer tests
+   - `H2DatabaseIntegrationTest.java`: Integration tests
 
 ## Scenario introduction
 ### Scenario 1 Concurrent without lock
