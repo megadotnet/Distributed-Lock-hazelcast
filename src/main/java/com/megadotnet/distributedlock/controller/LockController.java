@@ -3,17 +3,16 @@ package com.megadotnet.distributedlock.controller;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.Lock;
 
-import com.hazelcast.core.ILock;
 import com.megadotnet.distributedlock.entity.Product;
 import com.megadotnet.distributedlock.service.ProductService;
+import com.hazelcast.core.HazelcastInstance;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.hazelcast.core.HazelcastInstance;
 
 @RestController
 @RequestMapping("/api")
@@ -93,23 +92,30 @@ public class LockController {
 
 	private String insert(int amount) {
 		Product p = null;
-		ILock l = hazelcastInstance.getLock("savelock");
+		// 在Hazelcast 5.5中，CP锁应该从CP子系统获取
+		Lock lock = hazelcastInstance.getCPSubsystem().getLock("savelock");
 		try {
-			if (l.tryLock(10, TimeUnit.SECONDS)) {
-				int val = atomicInt.accumulateAndGet(amount, LockController::sum);
-				p = service.insertProduct();
+			// 尝试获取锁，设置超时时间
+			if (lock.tryLock(10, TimeUnit.SECONDS)) {
+				try {
+					// 在获取锁后执行业务逻辑
+					int val = atomicInt.accumulateAndGet(amount, LockController::sum);
+					p = service.insertProduct();
+				} finally {
+					// 确保在业务逻辑执行后释放锁
+					lock.unlock();
+				}
+			} else {
+				log.warn("Failed to acquire lock within timeout period");
+				return "lock acquisition timeout";
 			}
-			// Thread.sleep(300);
 		} catch (InterruptedException e) {
-			log.error(e.getMessage());
-		} finally {
-			try {
-				l.unlock();
-			} catch (Exception e) {
-				l.forceUnlock();
-			}
-
+			log.error("Lock interrupted: {}", e.getMessage(), e);
+			Thread.currentThread().interrupt(); // 重新设置中断标志
+		} catch (Exception e) {
+			log.error("Error during lock operation: {}", e.getMessage(), e);
 		}
+		
 		if (p == null) {
 			return "error";
 		}
