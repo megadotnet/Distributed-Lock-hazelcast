@@ -19,7 +19,7 @@ spring:
         show-sql: true
 
 hazelcast:
-    enabled: true
+    enabled: false
     cluster: false
     servers:
         - localhost:5701
