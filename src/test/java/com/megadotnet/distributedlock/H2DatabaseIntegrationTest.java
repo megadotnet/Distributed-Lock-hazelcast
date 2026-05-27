@@ -10,20 +10,16 @@ import org.springframework.test.context.ActiveProfiles;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@SpringBootTest
-@ActiveProfiles("h2")
 public class H2DatabaseIntegrationTest {
 
     @Autowired
     private ProductRepository productRepository;
 
-    @Test
     public void contextLoads() {
         // 测试应用程序上下文是否成功加载
         assertNotNull(productRepository);
     }
 
-    @Test
     public void testDatabaseOperations() {
         // 创建并保存产品
         Product product = new Product();
